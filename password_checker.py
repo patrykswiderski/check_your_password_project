@@ -1,9 +1,15 @@
+""""""
+from hashlib import sha1
 
-def check_length(word, limit=8):
+
+def check_length(word, limit=8) -> bool:
     """
+    Args:
+        :param limit (int): specifies the minimum number of characters in the word
+        :type word (str): password to be checked
 
-    :param limit: specifies the minimum number of characters in the word
-    :type word: password to be checked
+    Returns:
+
     """
     if len(word) >= limit:
         return True
@@ -50,11 +56,14 @@ def check_size_letters(word):
         return False
 
 
-def search_database():
-    pass
+# def search_database(word):
+#     hashed_password = sha1(word.encode("utf-8"))
+#     return hashed_password.hexdigest()[0:5]
 
 
-
-
-word_to = "fjsfhi34@#5jkU@hkjh453j"
-print(check_size_letters(word=word_to))
+# word_to = "1Swiderski"
+# print(search_database(word=word_to))
+#
+# hashed_password = sha1(word_to.encode("utf-8"))
+# print(hashed_password.hexdigest())
+# print(hashed_password.hexdigest()[5:-1])
