@@ -18,8 +18,8 @@ class PasswordPreChecker:
                 in the password.
 
         Return:
-            A list of test results, where each result is a boolean.
-            condition_met is True if the condition is met, False otherwise.
+            list  : A list of test results, where each result is a boolean.
+                condition_met is True if the condition is met, False otherwise.
         """
         self.test_results.append(self.check_length(password, char_required))
         self.test_results.append(self.check_contain_numbers(password, num_required))
@@ -35,7 +35,7 @@ class PasswordPreChecker:
             limit (ini): Specifies the minimum number of characters in the password.
 
         Return:
-            A boolean where condition_met is True if the condition is met, False otherwise.
+            bool : Where condition_met is True if the condition is met, False otherwise.
         """
         if len(word) >= limit:
             return True
@@ -51,7 +51,7 @@ class PasswordPreChecker:
             limit (ini): Specifies the minimum number of numeric digits in the password.
 
         Return:
-            A boolean where condition_met is True if the condition is met, False otherwise.
+            bool : Where condition_met is True if the condition is met, False otherwise.
         """
         list_of_number = [True for letter in password if letter.isnumeric()]
         if len(list_of_number) >= limit:
@@ -70,7 +70,7 @@ class PasswordPreChecker:
                 the password.
 
         Return:
-            A boolean where condition_met is True if the condition is met, False otherwise.
+            bool : Where condition_met is True if the condition is met, False otherwise.
         """
         list_of_characters = [letter for letter in password if not letter.isalnum()]
         if len(list_of_characters) >= limit:
@@ -86,7 +86,7 @@ class PasswordPreChecker:
             password (str): The password to be checked.
 
         Return:
-            A boolean where condition_met is True if the condition is met, False otherwise.
+            bool : Where condition_met is True if the condition is met, False otherwise.
         """
         list_capitalized_letters = [True for letter in password if letter.isupper()]
         list_lower_case_letters = [True for letter in password if letter.islower()]
