@@ -1,4 +1,6 @@
-from password_checker import PasswordPreChecker
+"""Utility to check is your passwords are properly secures"""
+
+from password_pre_checker import PasswordPreChecker
 from web_leak_checker import CheckLeakToWeb
 
 
@@ -8,7 +10,7 @@ leak_checker = CheckLeakToWeb()
 
 try:
     # Open the "passwords.txt" file in read mode
-    with open("passwords.txt", "r") as data:
+    with open("passwords.txt", "r", encoding="utf-8") as data:
         # Use a generator expression to read lines and strip whitespace
         password_lines = (line.strip() for line in data)
 
@@ -17,12 +19,13 @@ try:
             password_restrictions = pass_checker.test_all_restriction(password)
 
             # Call the check_is_leaked method to check for password leaks
-            is_leaked = leak_checker.check_is_leaked(password)
+            # and add it to password_restrictions list
+            password_restrictions.append(leak_checker.check_is_leaked(password))
 
-            if all(password_restrictions) and is_leaked:
+            if all(password_restrictions):
                 try:
                     # Attempt to open the "secure.txt" file in read and write mode
-                    with open("secure.txt", "r+") as new_data:
+                    with open("secure.txt", "r+", encoding="utf-8") as new_data:
                         existing_passwords = new_data.read()
 
                         # Check if the password is not already in the file
@@ -32,7 +35,7 @@ try:
 
                 except FileNotFoundError:
                     # The "a+" mode automatically creates the file if it doesn't exist
-                    with open("secure.txt", "a") as new_data:
+                    with open("secure.txt", "a", encoding="utf-8") as new_data:
                         new_data.write(f"{password}\n")
 
 except FileNotFoundError:

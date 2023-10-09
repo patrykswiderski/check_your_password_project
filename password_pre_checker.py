@@ -2,8 +2,8 @@
 class PasswordPreChecker:
     """A class for checking the compliance of a password with specified restrictions."""
     def __init__(self, char_required=8, num_required=1, spec_char_required=1):
-        """Initializes a new PasswordPreChecker instance with default values for
-            password restrictions.
+        """Initializes a new PasswordPreChecker instance with empty list for test results
+            and default values for password restrictions.
 
         Args:
             char_required (int): Specifies the minimum number of characters in the password.
@@ -11,6 +11,7 @@ class PasswordPreChecker:
             spec_char_required (int): Specifies the minimum number of non-alphanumeric characters
                 in the password.
         """
+        self.test_results = []
         self.char_required = char_required
         self.num_required = num_required
         self.spec_char_required = spec_char_required
@@ -26,7 +27,7 @@ class PasswordPreChecker:
             list  : A list of test results, where each result is a boolean.
                 condition_met is True if the condition is met, False otherwise.
         """
-        self.test_results = []
+        self.test_results.clear()
         self.test_results.append(self.check_length(password, self.char_required))
         self.test_results.append(self.check_contain_numbers(password, self.num_required))
         self.test_results.append(self.check_contain_characters(password, self.spec_char_required))
@@ -45,8 +46,7 @@ class PasswordPreChecker:
         """
         if len(password) >= limit:
             return True
-        else:
-            return False
+        return False
 
 
     def check_contain_numbers(self, password, limit=1):
@@ -62,8 +62,7 @@ class PasswordPreChecker:
         list_of_number = [True for letter in password if letter.isnumeric()]
         if len(list_of_number) >= limit:
             return True
-        else:
-            return False
+        return False
 
 
     def check_contain_characters(self, password, limit=1):
@@ -81,8 +80,7 @@ class PasswordPreChecker:
         list_of_characters = [letter for letter in password if not letter.isalnum()]
         if len(list_of_characters) >= limit:
             return True
-        else:
-            return False
+        return False
 
 
     def check_size_letters(self, password):
@@ -98,5 +96,4 @@ class PasswordPreChecker:
         list_lower_case_letters = [True for letter in password if letter.islower()]
         if any(list_capitalized_letters) and any(list_lower_case_letters):
             return True
-        else:
-            return False
+        return False

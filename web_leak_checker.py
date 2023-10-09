@@ -42,7 +42,6 @@ class CheckLeakToWeb:
         first_characters = self.hashing_password(password)[0:5]
         try:
             r = requests.get(url=f"{HIPB_ENDPOINT}/{first_characters}", timeout=(5, 5))
-            r.status_code
             return r.text
         except requests.exceptions.Timeout:
             print("Sorry we have difficulties to get information from server. Try again later.")
@@ -55,12 +54,11 @@ class CheckLeakToWeb:
             password (str): The password to be checked for leaks.
 
         Return:
-            bool : True if the password is found in the Have I Been Pwned database, False otherwise.
+            bool : False if the password is found in the Have I Been Pwned database, True otherwise.
         """
         rest_char_password = self.hashing_password(password)[5:-1]
         if self.get_data_hibp(password) and rest_char_password in self.get_data_hibp(password):
             print("Found!")
             return False
-        else:
-            print("Not found!")
-            return True
+        print("Not found!")
+        return True
