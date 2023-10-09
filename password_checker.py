@@ -1,29 +1,35 @@
 """Checking the basic parameters of the secure password"""
 class PasswordPreChecker:
-    """A class for checking the compliance of a password with specified restrictions.
-    """
-    def __init__(self):
-        """Initializes a new PasswordPreChecker instance with an empty list for test results.
-        """
-        self.test_results = []
+    """A class for checking the compliance of a password with specified restrictions."""
+    def __init__(self, char_required=8, num_required=1, spec_char_required=1):
+        """Initializes a new PasswordPreChecker instance with default values for
+            password restrictions.
 
-    def test_all_restriction(self, password, char_required=8, num_required=1, spec_char_required=1):
+        Args:
+            char_required (int): Specifies the minimum number of characters in the password.
+            num_required (int): Specifies the minimum number of numeric digits in the password.
+            spec_char_required (int): Specifies the minimum number of non-alphanumeric characters
+                in the password.
+        """
+        self.char_required = char_required
+        self.num_required = num_required
+        self.spec_char_required = spec_char_required
+
+
+    def test_all_restriction(self, password):
         """Tests the password against various restrictions and accumulates the results.
 
         Args:
             password (str): The password to be checked.
-            char_required (ini): Specifies the minimum number of characters in the password.
-            num_required (ini): Specifies the minimum number of numeric digits in the password.
-            spec_char_required (ini): Specifies the minimum number of non-alphanumeric characters
-                in the password.
 
         Return:
             list  : A list of test results, where each result is a boolean.
                 condition_met is True if the condition is met, False otherwise.
         """
-        self.test_results.append(self.check_length(password, char_required))
-        self.test_results.append(self.check_contain_numbers(password, num_required))
-        self.test_results.append(self.check_contain_characters(password, spec_char_required))
+        self.test_results = []
+        self.test_results.append(self.check_length(password, self.char_required))
+        self.test_results.append(self.check_contain_numbers(password, self.num_required))
+        self.test_results.append(self.check_contain_characters(password, self.spec_char_required))
         self.test_results.append(self.check_size_letters(password))
         return self.test_results
 
