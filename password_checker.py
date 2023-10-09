@@ -27,7 +27,7 @@ class PasswordPreChecker:
         self.test_results.append(self.check_size_letters(password))
         return self.test_results
 
-    def check_length(self, word, limit=8) -> bool:
+    def check_length(self, password, limit=8) -> bool:
         """Checks if the password meets the minimum length requirement.
 
         Args:
@@ -37,7 +37,7 @@ class PasswordPreChecker:
         Return:
             bool : Where condition_met is True if the condition is met, False otherwise.
         """
-        if len(word) >= limit:
+        if len(password) >= limit:
             return True
         else:
             return False
