@@ -6,6 +6,7 @@ from io import StringIO
 import pytest
 from password_validators import PasswordValidator, ValidationError, LeakPasswordValidator
 
+
 class TestPasswordValidator(unittest.TestCase):
     """
     A class for testing the PasswordValidator class.

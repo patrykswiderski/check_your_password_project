@@ -2,6 +2,7 @@
 from hashlib import sha1
 import requests
 
+
 class ValidationError(Exception):
     """Exception raised for validation errors."""
 
