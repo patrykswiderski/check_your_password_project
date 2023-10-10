@@ -1,36 +1,27 @@
-"""Utility to check is your passwords are properly secures"""
+"""Utility to check is your passwords are properly secured"""
 
-from password_pre_checker import PasswordPreChecker
-from web_leak_checker import CheckLeakToWeb
+from password_validators import PasswordValidator, LeakPasswordValidator
 
 
-# Initialize instances of PasswordPreChecker and CheckLeakToWeb
-pass_checker = PasswordPreChecker()
-leak_checker = CheckLeakToWeb()
+# Initialize instances of PasswordValidator and LeakPasswordValidator
+pass_validator = PasswordValidator()
+leak_validator = LeakPasswordValidator()
 
 try:
     # Open the "passwords.txt" file in read mode
     with open("passwords.txt", "r", encoding="utf-8") as data:
         # Use a generator expression to read lines and strip whitespace
         password_lines = (line.strip() for line in data)
-
         for password in password_lines:
-            # Call the test_all_restriction method to check the password
-            password_restrictions = pass_checker.test_all_restriction(password)
-
-            # Call the check_is_leaked method to check for password leaks
-            # and add it to password_restrictions list
-            password_restrictions.append(leak_checker.check_is_leaked(password))
-
-            if all(password_restrictions):
+            # Check if the password meets the criteria and is not leaked
+            if pass_validator.is_valid(password):
                 try:
                     # Attempt to open the "secure.txt" file in read and write mode
                     with open("secure.txt", "r+", encoding="utf-8") as new_data:
                         existing_passwords = new_data.read()
-
-                        # Check if the password is not already in the file
+                        # Check if the text is not already in the file
                         if password not in existing_passwords:
-                            # Write the new password to the file
+                            # Write the new text to the file
                             new_data.write(f"{password}\n")
 
                 except FileNotFoundError:
